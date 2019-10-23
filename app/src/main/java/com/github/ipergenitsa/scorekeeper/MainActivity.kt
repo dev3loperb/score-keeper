@@ -6,12 +6,12 @@ import android.widget.EditText
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class Main2Activity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val users: MutableList<User> = mutableListOf(
         User("Player 1", 0),
@@ -20,7 +20,7 @@ class Main2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main)
 
         val lvMain = findViewById<ListView>(R.id.lvUsers)
         val adapter = UserListAdapter(this, R.layout.user_list_item, users)
