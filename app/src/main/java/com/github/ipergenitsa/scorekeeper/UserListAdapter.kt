@@ -34,20 +34,38 @@ class UserListAdapter(context: Context, val layoutId: Int, val userList: List<Us
         viewHolder.countView.text = user.score.toString()
 
         viewHolder.addButton.setOnClickListener {addScore(context, user, viewHolder.countView)}
+        viewHolder.subtractButton.setOnClickListener {subtractScore(context, user, viewHolder.countView)}
 
         return convertView
     }
 
     private fun addScore(context: Context, user: User, view: TextView) {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Введите число баллов")
+        builder.setTitle("Enter score to add")
 
         val input = EditText(context)
         input.inputType = InputType.TYPE_CLASS_NUMBER
         builder.setView(input)
 
-        builder.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton("Add") { _, _ ->
             user.score = Integer.parseInt(view.text.toString()) + Integer.parseInt(input.text.toString())
+            notifyDataSetChanged()
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+        builder.show()
+    }
+
+    private fun subtractScore(context: Context, user: User, view: TextView) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Enter score to subtract")
+
+        val input = EditText(context)
+        input.inputType = InputType.TYPE_CLASS_NUMBER
+        builder.setView(input)
+
+        builder.setPositiveButton("Subtract") { _, _ ->
+            user.score = Integer.parseInt(view.text.toString()) - Integer.parseInt(input.text.toString())
             notifyDataSetChanged()
         }
         builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
@@ -57,6 +75,7 @@ class UserListAdapter(context: Context, val layoutId: Int, val userList: List<Us
 
     private inner class ViewHolder internal constructor(view: View) {
         internal val addButton: Button = view.findViewById(R.id.addScoreButton)
+        internal val subtractButton: Button = view.findViewById(R.id.subtractScoreButton)
         internal val nameView: TextView = view.findViewById(R.id.userNameView)
         internal val countView: TextView = view.findViewById(R.id.userScoreView)
     }
