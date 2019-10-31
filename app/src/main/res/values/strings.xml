@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Score Keeper</string>
     <string name="players">Players</string>
+    <string name="create_user_title">"Enter new user name"</string>
 </resources>

@@ -45,13 +45,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun addNewUser(adapter: UserListAdapter) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Title")
+        builder.setTitle(R.string.create_user_title)
 
         val input = EditText(this)
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-        builder.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton("Add") { _, _ ->
             run {
                 users.add(User(input.text.toString(), 0))
                 adapter.notifyDataSetChanged()
