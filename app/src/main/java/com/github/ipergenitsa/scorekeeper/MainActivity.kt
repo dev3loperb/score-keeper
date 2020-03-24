@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val lvMain = findViewById<ListView>(R.id.lvUsers)
-        val adapter = UserListAdapter(this, R.layout.user_list_item, users)
+        val adapter = UserListAdapter(R.layout.user_list_item, users, this)
         lvMain.adapter = adapter
 
         fab.setOnClickListener {addNewUser(adapter)}

@@ -8,17 +8,14 @@ class User(val name: String, var score: Int) : Parcelable {
     constructor(parcel: Parcel) : this(
         Optional.ofNullable(parcel.readString()).orElse(""),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeInt(score)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents() = 0
 
     companion object CREATOR : Parcelable.Creator<User> {
         override fun createFromParcel(parcel: Parcel): User {

@@ -12,26 +12,30 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 
 
-class UserListAdapter(context: Context, val layoutId: Int, val userList: List<User>)
-    : ArrayAdapter<User>(context, layoutId, userList) {
+class UserListAdapter(
+    private val layoutId: Int,
+    private val userList: List<User>,
+    context: Context
+) : ArrayAdapter<User>(context, layoutId, userList) {
+
     private val inflater = LayoutInflater.from(context)
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var convertView = convertView
-
+    override fun getView(position: Int, convertViewArg: View?, parent: ViewGroup): View {
         val viewHolder: ViewHolder
-        if (convertView == null) {
-            convertView = inflater.inflate(this.layoutId, parent, false)
-            viewHolder = ViewHolder(convertView!!)
-            convertView.tag = viewHolder
+        val convertView = if (convertViewArg == null) {
+            val inflated = inflater.inflate(this.layoutId, parent, false)
+            viewHolder = ViewHolder(inflated)
+            inflated.tag = viewHolder
+            inflated
         } else {
-            viewHolder = convertView.tag as ViewHolder
+            viewHolder = convertViewArg.tag as ViewHolder
+            convertViewArg
         }
 
         val user = userList[position]
 
-        viewHolder.nameView.setText(user.name)
-        viewHolder.countView.text = user.score.toString()
+        viewHolder.nameView.text = user.name
+        viewHolder.countView.setText(user.score)
 
         viewHolder.addButton.setOnClickListener {addScore(context, user, viewHolder.countView)}
         viewHolder.subtractButton.setOnClickListener {subtractScore(context, user, viewHolder.countView)}
